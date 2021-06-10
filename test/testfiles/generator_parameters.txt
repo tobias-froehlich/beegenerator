@@ -1,0 +1,3 @@
+image_width    30
+image_height   50
+border_width   20
