@@ -12,5 +12,9 @@ background_color   30 210 80
 number_of_bees    30
 radius_of_bees    20
 min_start_speed   3
-max_start_speed   10
+max_start_speed   5
 
+brownian_probability 0.1
+brownian_strength    5
+
+friction 0.01

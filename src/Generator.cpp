@@ -66,6 +66,12 @@ Generator::Generator(
         parameters.get_value("min_start_speed"));
     maxStartSpeed = std::stof(
         parameters.get_value("max_start_speed"));
+    brownianProbability = std::stof(
+      parameters.get_value("brownian_probability"));
+    brownianStrength = std::stof(
+      parameters.get_value("brownian_strength"));
+    oneMinusFriction = 1.0 - std::stof(
+      parameters.get_value("friction"));
 
     std::srand(std::time(nullptr));
     for(int i=0; i<numberOfBees; i++) {
@@ -168,11 +174,33 @@ void Generator::makeStep() {
             }
         }
     }
-//    for(Bee* bee_ptr : bee_ptrs) {
-//        if (bee_ptr->getUndone()) {
-//            bee_ptr->makeStep(0.5);
-//        }
-//    }
+
+    for(Bee* bee_ptr : bee_ptrs) {
+        bee_ptr->setXSpeed(
+            bee_ptr->getXSpeed() * oneMinusFriction
+        );
+        bee_ptr->setYSpeed(
+            bee_ptr->getYSpeed() * oneMinusFriction
+        );
+        if ((std::rand() % 10000) * 0.0001 
+                < brownianProbability) {
+            double speed = ((std::rand() % (int)(brownianStrength) * 1000)) * 0.001;
+            double angle = (std::rand() % (int)(360000)) * 0.001 * cPiOver180;
+            std::cout << "speed = " << speed << "\n";
+            std::cout << "angle = " << angle << "\n";
+            double xSpeed = std::cos(angle) * speed;
+            double ySpeed = std::sin(angle) * speed;
+            bee_ptr->setXSpeed(
+                bee_ptr->getXSpeed()
+                + xSpeed
+            );
+            bee_ptr->setYSpeed(
+                bee_ptr->getYSpeed()
+                + ySpeed
+            );
+        }
+
+    }
 
 }
 
