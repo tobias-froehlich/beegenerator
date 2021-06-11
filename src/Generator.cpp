@@ -1,4 +1,8 @@
+#include <cstddef>
+#include <cstdint>
+#include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include "Parameters.h"
@@ -38,6 +42,6 @@ void Generator::readParameterFile(
     );
     borderWidth = std::stoi(
       parameters.get_value("border_width")
-    );
-    
+    );   
 }
+

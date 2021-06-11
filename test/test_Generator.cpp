@@ -23,3 +23,5 @@ TEST (Generator, read_parameters) {
 
     delete generator;
 }
+
+

@@ -4,6 +4,8 @@ add_executable( Test
   test.cpp 
   ../src/utils.cpp
   ../src/Parameters.cpp
+  ../libs/tinypngout/TinyPngOut.cpp
+  ../src/Image.cpp
   ../src/Generator.cpp
 )
 

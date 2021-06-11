@@ -13,7 +13,7 @@ class Generator {
         int getImageHeight();
         int getBorderWidth();
         void readParameterFile(
-            std::string parameterFileName);
+                std::string parameterFileName);
 };
 
 #endif
