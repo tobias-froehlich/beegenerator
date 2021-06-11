@@ -1,6 +1,6 @@
 begin_of_filenames   /tmp/bee_
-number_of_digits     2
-number_of_images     100
+number_of_digits     3
+number_of_images     300
 
 image_width    400
 image_height   300
@@ -9,7 +9,7 @@ border_width   200
 color_of_bees     255 200 50
 background_color   30 210 80 
 
-number_of_bees    10
+number_of_bees    30
 radius_of_bees    20
 min_start_speed   3
 max_start_speed   10

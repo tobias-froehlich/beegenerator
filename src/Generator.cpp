@@ -140,7 +140,7 @@ void Generator::writeImage(
 
 void Generator::makeStep() {
     for(Bee* bee_ptr : bee_ptrs) {
-        bee_ptr->makeStep();
+        bee_ptr->makeStep(1.0);
         double x = bee_ptr->getX();
         double y = bee_ptr->getY();
         if ((x < radiusOfBees)
@@ -148,13 +148,31 @@ void Generator::makeStep() {
             bee_ptr->setXSpeed(
                 -bee_ptr->getXSpeed()
             );
+            bee_ptr->undo();
         }
         if ((y < radiusOfBees) || (y >= imageHeight - radiusOfBees)) {
             bee_ptr->setYSpeed(
                 -bee_ptr->getYSpeed()
             );
+            bee_ptr->undo();
         }
     }
+    for(int i1=1; i1<numberOfBees; i1++) {
+        for(int i2=0; i2<i1; i2++) {
+            if (bee_ptrs[i1]->overlapsWith(
+                    bee_ptrs[i2])) {
+                bee_ptrs[i1]->collideWith(
+                        bee_ptrs[i2]);
+                bee_ptrs[i1]->undo();
+                bee_ptrs[i2]->undo();
+            }
+        }
+    }
+//    for(Bee* bee_ptr : bee_ptrs) {
+//        if (bee_ptr->getUndone()) {
+//            bee_ptr->makeStep(0.5);
+//        }
+//    }
 
 }
 

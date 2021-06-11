@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 
 #include "Image.h"
 #include "Bee.h"
@@ -35,10 +36,12 @@ double Bee::getRadius() {
 
 void Bee::setX(double x) {
     this->x = x;
+    this->xOld = x;
 }
 
 void Bee::setY(double y) {
     this->y = y;
+    this->yOld = y;
 }
 
 void Bee::setXSpeed(double xSpeed) {
@@ -81,9 +84,22 @@ void Bee::draw(Image* image_ptr) {
     }
 }
 
-void Bee::makeStep() {
-    x += xSpeed;
-    y += ySpeed;
+void Bee::makeStep(double factor) {
+    xOld = x;
+    yOld = y;
+    x += xSpeed * factor;
+    y += ySpeed * factor;
+    undone = 0;
+}
+
+void Bee::undo() {
+    x = xOld;
+    y = yOld;
+    undone = 1;
+}
+
+int Bee::getUndone() {
+    return undone;
 }
 
 int Bee::overlapsWith(Bee* bee_ptr) {
@@ -96,4 +112,47 @@ int Bee::overlapsWith(Bee* bee_ptr) {
     } else {
         return 0;
     }
+}
+
+void Bee::collideWith(Bee* bee_ptr) {
+    double x1 = this->getX();
+    double y1 = this->getY();
+    double xSpeed1 = this->getXSpeed();
+    double ySpeed1 = this->getYSpeed();
+    double x2 = bee_ptr->getX();
+    double y2 = bee_ptr->getY();
+    double xSpeed2 = bee_ptr->getXSpeed();
+    double ySpeed2 = bee_ptr->getYSpeed();
+
+    double dX = x1 - x2;
+    double dY = y1 - y2;
+    double distance = std::sqrt(dX*dX + dY*dY);
+   
+    dX /= distance;
+    dY /= distance;
+
+    double prod1 = xSpeed1 * dX + ySpeed1 * dY;
+    double xSpeed1par = prod1 * dX;
+    double ySpeed1par = prod1 * dY;
+    double xSpeed1vert = xSpeed1 - xSpeed1par;
+    double yspeed1vert = ySpeed1 - ySpeed1par;
+
+    double prod2 = xSpeed2 * dX + ySpeed2 * dY;
+    double xSpeed2par = prod2 * dX;
+    double ySpeed2par = prod2 * dY;
+    double xSpeed2vert = xSpeed2 - xSpeed2par;
+    double yspeed2vert = ySpeed2 - ySpeed2par;
+
+    xSpeed1 += -xSpeed1par + xSpeed2par;
+    ySpeed1 += -ySpeed1par + ySpeed2par;
+
+    xSpeed2 += -xSpeed2par + xSpeed1par;
+    ySpeed2 += -ySpeed2par + ySpeed1par;
+
+
+    this->setXSpeed(xSpeed1);
+    this->setYSpeed(ySpeed1);
+
+    bee_ptr->setXSpeed(xSpeed2);
+    bee_ptr->setYSpeed(ySpeed2);
 }

@@ -9,8 +9,11 @@ class Bee {
         double radius = 0;
         double x = 0;
         double y = 0;
+        double xOld = 0;
+        double yOld = 0;
         double xSpeed = 0;
         double ySpeed = 0;
+        int undone = 0;
     public:
         Bee();
         ~Bee();
@@ -28,8 +31,11 @@ class Bee {
         double getXSpeed();
         double getYSpeed();
         void draw(Image* image_ptr);
-        void makeStep();
+        void makeStep(double factor);
+        void undo();
+        int getUndone();
         int overlapsWith(Bee* bee_ptr);
+        void collideWith(Bee* bee_ptr);
 };
 
 #endif
