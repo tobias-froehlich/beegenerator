@@ -78,11 +78,6 @@ Generator::Generator(
         createNewBee();
     }
 
-
-    for(Bee* bee_ptr : bee_ptrs) {
-        std::cout << "x = " << bee_ptr->getX() << ", y = " << bee_ptr->getY() << "\n";
-    }
-
 }
 
 Generator::~Generator() {
@@ -97,7 +92,7 @@ void Generator::createNewBee() {
     newbee_ptr->setRadius(radiusOfBees);
     int occupied = 1;
     while (occupied) {
-        double x =  (std::rand() % (int)((imageWidth-2*radiusOfBees) * 1000)) * 0.001 + radiusOfBees;
+        double x =  (std::rand() % (int)((imageWidth-2*radiusOfBees + 2*borderWidth) * 1000)) * 0.001 + radiusOfBees - borderWidth;
         double y = (std::rand() % (int)((imageHeight-2*radiusOfBees) * 1000)) * 0.001 + radiusOfBees;
         newbee_ptr->setX(x);
         newbee_ptr->setY(y);
@@ -110,8 +105,6 @@ void Generator::createNewBee() {
     }
     double speed = ((std::rand() % (int)(maxStartSpeed) * 1000)) * 0.001 + minStartSpeed;
     double angle = (std::rand() % (int)(360000)) * 0.001 * cPiOver180;
-    std::cout << "speed = " << speed << "\n";
-    std::cout << "angle = " << angle << "\n";
     double xSpeed = std::cos(angle) * speed;
     double ySpeed = std::sin(angle) * speed;
     newbee_ptr->setXSpeed(xSpeed);
@@ -137,8 +130,11 @@ void Generator::writeImage(
     image_ptr->fill(backgroundRed,
             backgroundGreen, backgroundBlue);
     for(Bee* bee_ptr : bee_ptrs) {
-        std::cout << "This bee is at " << bee_ptr->getX() << ", " << bee_ptr->getY() << "\n";
-        bee_ptr->draw(image_ptr);
+        int x = bee_ptr->getX();
+        if ((x >= -radiusOfBees)
+            && (x <= imageWidth + radiusOfBees)) {
+            bee_ptr->draw(image_ptr);
+        }
     }
     image_ptr->write(imageFileName);
 }
@@ -149,8 +145,8 @@ void Generator::makeStep() {
         bee_ptr->makeStep(1.0);
         double x = bee_ptr->getX();
         double y = bee_ptr->getY();
-        if ((x < radiusOfBees)
-            || (x >= imageWidth - radiusOfBees)) {
+        if ((x < -borderWidth + radiusOfBees)
+            || (x >= imageWidth + borderWidth - radiusOfBees)) {
             bee_ptr->setXSpeed(
                 -bee_ptr->getXSpeed()
             );
@@ -186,8 +182,6 @@ void Generator::makeStep() {
                 < brownianProbability) {
             double speed = ((std::rand() % (int)(brownianStrength) * 1000)) * 0.001;
             double angle = (std::rand() % (int)(360000)) * 0.001 * cPiOver180;
-            std::cout << "speed = " << speed << "\n";
-            std::cout << "angle = " << angle << "\n";
             double xSpeed = std::cos(angle) * speed;
             double ySpeed = std::sin(angle) * speed;
             bee_ptr->setXSpeed(
@@ -206,6 +200,7 @@ void Generator::makeStep() {
 
 void Generator::makeVideo() {
     for(int i=0; i<numberOfImages; i++) {
+        std::cout << i << " of " << numberOfImages << "\n";
         std::string filename(beginOfFilenames);
         filename.append(
             utils::intToStringLeadingZeros(

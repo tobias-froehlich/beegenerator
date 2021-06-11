@@ -71,7 +71,6 @@ double Bee::getYSpeed() {
 void Bee::draw(Image* image_ptr) {
     int startX = (int)(x - radius);
     int startY = (int)(y - radius);
-    std::cout << "Drawing around " << getX() << ", " << getY() << "\n";
     for(int ix=startX; ix<=x+radius+1; ix++) {
         for(int iy=startY; iy<=y+radius+1; iy++) {
             double dx = ix - x;
