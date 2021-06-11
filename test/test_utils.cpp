@@ -82,6 +82,17 @@ TEST( utils, inc_ending_number ) {
   
 }
 
+TEST ( utils, intToStringLeadingZeros ) {
+    ASSERT_EQ(
+        utils::intToStringLeadingZeros(25, 2),
+        "25"
+    );
+    ASSERT_EQ(
+        utils::intToStringLeadingZeros(25, 3),
+        "025"
+    );
+}
+
 TEST ( utils, vector_str_to_int ) {
   std::vector < std::string > v {"1", "2", "345"};
   std::vector < int > result {1, 2, 345};

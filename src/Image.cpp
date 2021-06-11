@@ -43,7 +43,7 @@ int Image::getHeight() {
 }
 
 
-uint8_t Image::get_pixel(int x, int y, int channel) {
+uint8_t Image::getPixel(int x, int y, int channel) {
     if ((x >= 0) && (x < width)
             && (y >= 0) && (y < height)
             && (channel >= 0) && (channel < 3)) {
@@ -54,7 +54,7 @@ uint8_t Image::get_pixel(int x, int y, int channel) {
 }
 
 
-void Image::set_pixel(int x, int y, int channel,
+void Image::setPixel(int x, int y, int channel,
         uint8_t value) {
     if ((x >= 0) && (x < width)
             && (y >= 0) && (y < height)
@@ -63,7 +63,7 @@ void Image::set_pixel(int x, int y, int channel,
     }
 }
 
-void Image::set_pixel(int x, int y, uint8_t red,
+void Image::setPixel(int x, int y, uint8_t red,
         uint8_t green, uint8_t blue) {
     if ((x >= 0) && (x < width)
             && (y >= 0) && (y < height)) {

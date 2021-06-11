@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <sstream>
+#include <iomanip>
 #include "const.h"
 #include "utils.h"
 
@@ -78,6 +80,16 @@ std::string utils::inc_ending_number(
   ending = std::to_string(std::stoi(ending) + 1);
   return trunc + ending;
 }
+
+
+std::string utils::intToStringLeadingZeros(
+          int number, int digits) {
+    std::ostringstream ss;
+    ss << std::setw(digits)
+            <<std::setfill('0') << number;
+    return ss.str();
+}
+
 
 std::vector < int > utils::vector_str_to_int(
     std::vector < std::string > str_vector) {

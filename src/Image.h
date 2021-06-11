@@ -13,10 +13,10 @@ class Image {
                 uint8_t blue);
         int getWidth();
         int getHeight();
-        uint8_t get_pixel(int x, int y, int channel);
-        void set_pixel(int x, int y, int channel,
+        uint8_t getPixel(int x, int y, int channel);
+        void setPixel(int x, int y, int channel,
                 uint8_t value);
-        void set_pixel(int x, int y, uint8_t red,
+        void setPixel(int x, int y, uint8_t red,
                 uint8_t green, uint8_t blue);
         void write(std::string fileName);
 };

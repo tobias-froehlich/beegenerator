@@ -4,5 +4,6 @@ add_executable(beegenerator
   ../libs/tinypngout/TinyPngOut.cpp
   Parameters.cpp
   Image.cpp
+  Bee.cpp
   Generator.cpp
 )

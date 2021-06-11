@@ -5,6 +5,7 @@
 #include "test_utils.cpp"
 #include "test_Parameters.cpp"
 #include "test_Image.cpp"
+#include "test_Bee.cpp"
 #include "test_Generator.cpp"
 
 int main(int argc, char** argv) {

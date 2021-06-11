@@ -20,8 +20,13 @@ namespace utils {
 
   std::string inc_ending_number(std::string name);
 
+  std::string intToStringLeadingZeros(
+          int number, int digits);
+
   std::vector < int > vector_str_to_int(
     std::vector < std::string >);
 }
+
+
 
 #endif

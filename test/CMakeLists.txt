@@ -6,6 +6,7 @@ add_executable( Test
   ../src/Parameters.cpp
   ../libs/tinypngout/TinyPngOut.cpp
   ../src/Image.cpp
+  ../src/Bee.cpp
   ../src/Generator.cpp
 )
 

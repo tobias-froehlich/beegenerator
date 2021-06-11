@@ -2,26 +2,37 @@
 
 TEST (Generator, create_and_delete ) {
     Generator* generator;
-    generator = new Generator();
-    delete generator;
-}
-
-TEST (Generator, read_parameters) {
-    Generator* generator = new Generator();
     ASSERT_THROW(
-        generator->readParameterFile("notexisting_file.txt"),
+        generator = new Generator("notexist.txt"),
         std::invalid_argument
     );
 
-    generator->readParameterFile(
-        "../test/testfiles/generator_parameters.txt"
+    ASSERT_THROW(
+        generator = new Generator(
+          "../test/testfiles/generator_parameters_wrong1.txt"),
+        std::invalid_argument
     );
-    ASSERT_EQ(generator->getImageWidth(), 30);
-    ASSERT_EQ(generator->getImageHeight(), 50);
-    ASSERT_EQ(generator->getBorderWidth(), 20);
 
+    generator = new Generator(
+    "../test/testfiles/generator_parameters.txt");
+
+
+    ASSERT_EQ(generator->getImageWidth(), 400);
+    ASSERT_EQ(generator->getImageHeight(), 300);
+    ASSERT_EQ(generator->getBorderWidth(), 200);
 
     delete generator;
 }
 
+TEST (Generator, write_image) {
+    Generator generator(
+    "../test/testfiles/generator_parameters.txt");
 
+    generator.writeImage("/tmp/test_bees.png");
+}
+
+TEST (Generator, makeVideo) {
+    Generator generator(
+    "../test/testfiles/generator_parameters.txt");
+    generator.makeVideo();
+}
