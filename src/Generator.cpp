@@ -150,13 +150,21 @@ void Generator::makeStep() {
             bee_ptr->setXSpeed(
                 -bee_ptr->getXSpeed()
             );
-            bee_ptr->undo();
+            if (x < -borderWidth + radiusOfBees) {
+                bee_ptr->setX(-borderWidth + radiusOfBees + 1);
+            } else {
+                bee_ptr->setX(imageWidth + borderWidth - radiusOfBees - 1);
+            }
         }
         if ((y < radiusOfBees) || (y >= imageHeight - radiusOfBees)) {
             bee_ptr->setYSpeed(
                 -bee_ptr->getYSpeed()
             );
-            bee_ptr->undo();
+            if (y < radiusOfBees) {
+                bee_ptr->setY(radiusOfBees + 1);
+            } else {
+                bee_ptr->setY(imageHeight - radiusOfBees - 1);
+            }
         }
     }
     for(int i1=1; i1<numberOfBees; i1++) {
