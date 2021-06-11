@@ -2,19 +2,19 @@ begin_of_filenames   /tmp/bee_
 number_of_digits     3
 number_of_images     300
 
-image_width    200
-image_height   300
-border_width   300
+image_width    50
+image_height   75
+border_width   75
 
 color_of_bees     255 200 50
-background_color   30 210 80 
+background_color   30 150 80 
 
-number_of_bees    50
-radius_of_bees    6
-min_start_speed   3
-max_start_speed   5
+number_of_bees    200
+radius_of_bees    2
+min_start_speed   0.3
+max_start_speed   0.5
 
 brownian_probability 0.1
-brownian_strength    5
+brownian_strength    0.5
 
 friction 0.01

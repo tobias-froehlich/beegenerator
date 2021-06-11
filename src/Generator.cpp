@@ -103,7 +103,7 @@ void Generator::createNewBee() {
             }
         }
     }
-    double speed = ((std::rand() % (int)(maxStartSpeed) * 1000)) * 0.001 + minStartSpeed;
+    double speed = (std::rand() % (int)(maxStartSpeed * 1000.0)) * 0.001 + minStartSpeed;
     double angle = (std::rand() % (int)(360000)) * 0.001 * cPiOver180;
     double xSpeed = std::cos(angle) * speed;
     double ySpeed = std::sin(angle) * speed;
@@ -180,7 +180,7 @@ void Generator::makeStep() {
         );
         if ((std::rand() % 10000) * 0.0001 
                 < brownianProbability) {
-            double speed = ((std::rand() % (int)(brownianStrength) * 1000)) * 0.001;
+            double speed = (std::rand() % (int)(brownianStrength * 1000.0)) * 0.001;
             double angle = (std::rand() % (int)(360000)) * 0.001 * cPiOver180;
             double xSpeed = std::cos(angle) * speed;
             double ySpeed = std::sin(angle) * speed;

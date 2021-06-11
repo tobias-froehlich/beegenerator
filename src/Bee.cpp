@@ -148,10 +148,15 @@ void Bee::collideWith(Bee* bee_ptr) {
     xSpeed2 += -xSpeed2par + xSpeed1par;
     ySpeed2 += -ySpeed2par + ySpeed1par;
 
-
     this->setXSpeed(xSpeed1);
     this->setYSpeed(ySpeed1);
+    this->setX(x1 + dX);
+    this->setY(y1 + dY);
 
     bee_ptr->setXSpeed(xSpeed2);
     bee_ptr->setYSpeed(ySpeed2);
+    bee_ptr->setX(x2 - dX);
+    bee_ptr->setY(y2 - dY);
+
+
 }
