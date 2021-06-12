@@ -1,17 +1,17 @@
 begin_of_filenames   /tmp/bee_
-number_of_digits     3
-number_of_images     100
+number_of_digits     4
+number_of_images     10000
 count_filename       /tmp/counts.txt
 
-image_width    50
-image_height   75
-border_width   100
+image_width    20
+image_height   20
+border_width   0
 x_count_line   25
 
 color_of_bees     255 200 50
 background_color   30 150 80 
 
-number_of_bees    50
+number_of_bees    10
 radius_of_bees    2
 min_start_speed   0.3
 max_start_speed   0.5

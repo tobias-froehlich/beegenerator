@@ -11,6 +11,10 @@ Parameters::Parameters() {
   
 }
 
+Parameters::Parameters(std::string filename) {
+    read_file(filename);
+}
+
 Parameters::~Parameters() {
 
 }

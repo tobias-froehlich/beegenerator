@@ -8,6 +8,7 @@ class Parameters {
       zValues {};
   public:
     Parameters();
+    Parameters(std::string filename);
     ~Parameters();
     void init();
     void read_line(std::string line);

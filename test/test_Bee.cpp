@@ -3,7 +3,8 @@
 
 
 TEST (Bee, create_and_delete) {
-    Bee bee;
+    Parameters* parameters_ptr = new Parameters("../test/testfiles/generator_parameters.txt");
+    Bee bee(parameters_ptr);
     bee.setRadius(4);
     bee.setX(5);
     bee.setY(6);
@@ -17,7 +18,8 @@ TEST (Bee, create_and_delete) {
 }
 
 TEST (Bee, draw) {
-    Bee bee;
+    Parameters* parameters_ptr = new Parameters("../test/testfiles/generator_parameters.txt");
+    Bee bee(parameters_ptr);
     bee.setRed(250);
     bee.setGreen(200);
     bee.setBlue(30);
@@ -33,9 +35,10 @@ TEST (Bee, draw) {
 }
 
 TEST (Bee, overlapsWith) {
-    Bee bee1;
-    Bee bee2;
-    Bee bee3;
+    Parameters* parameters_ptr = new Parameters("../test/testfiles/generator_parameters.txt");
+    Bee bee1(parameters_ptr);
+    Bee bee2(parameters_ptr);
+    Bee bee3(parameters_ptr);
     bee1.setRadius(5);
     bee2.setRadius(5);
     bee3.setRadius(5);
