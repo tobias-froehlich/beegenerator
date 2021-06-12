@@ -48,7 +48,7 @@ int Parameters::name_occurs(std::string name) {
   );
 }
 
-std::vector < std::string > Parameters::get_values(
+std::vector < std::string > Parameters::get_strings(
  std::string name) {
   for ( unsigned int i = 0; i < zNames.size(); i++ ) {
     if (zNames[i] == name) {
@@ -60,11 +60,65 @@ std::vector < std::string > Parameters::get_values(
   );
 }
 
-std::string Parameters::get_value(
+std::vector < int > Parameters::get_ints(
+  std::string name) {
+   std::vector < std::string > values =
+     get_strings(name);
+   std::vector < int > integers;
+   for(std::string value : values) {
+      integers.push_back(
+          std::stoi(value)
+      );
+   }
+   return integers;
+}
+
+std::vector < double > Parameters::get_floats(
+  std::string name) {
+   std::vector < std::string > values =
+     get_strings(name);
+   std::vector < double > floats;
+   for(std::string value : values) {
+      floats.push_back(
+          std::stof(value)
+      );
+   }
+   return floats;
+}
+
+std::string Parameters::get_string(
   std::string name) {
   
   std::vector< std::string > values =
-    get_values(name);
+    get_strings(name);
+
+  if (values.size() == 1) {
+    return values[0];
+  }
+  throw std::invalid_argument(
+    "Parameter should be just one value."
+  );
+}
+
+int Parameters::get_int(
+  std::string name) {
+  
+  std::vector< int > values =
+    get_ints(name);
+
+  if (values.size() == 1) {
+    return values[0];
+  }
+  throw std::invalid_argument(
+    "Parameter should be just one value."
+  );
+}
+
+double Parameters::get_float(
+  std::string name) {
+  
+  std::vector< double > values =
+    get_floats(name);
 
   if (values.size() == 1) {
     return values[0];

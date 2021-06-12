@@ -34,14 +34,20 @@ double Bee::getRadius() {
     return radius;
 }
 
+void Bee::setXCountLine(double xCountLine) {
+    this->xCountLine = xCountLine;
+}
+
 void Bee::setX(double x) {
     this->x = x;
     this->xOld = x;
+    this->xLastCount = x;
 }
 
 void Bee::setY(double y) {
     this->y = y;
     this->yOld = y;
+    this->yLastCount = y;
 }
 
 void Bee::setXSpeed(double xSpeed) {
@@ -157,6 +163,21 @@ void Bee::collideWith(Bee* bee_ptr) {
     bee_ptr->setYSpeed(ySpeed2);
     bee_ptr->setX(x2 - dX);
     bee_ptr->setY(y2 - dY);
+}
 
-
+int Bee::count() {
+   int result = 0;
+   if ((xLastCount <= xCountLine)
+     && (x > xCountLine)) {
+         result = 1;
+         std::cout << "counted 1 because moved from " << xLastCount << " to " << x << "\n";
+   }
+   if ((xLastCount > xCountLine)
+     && (x <= xCountLine)) {
+         result = -1;
+         std::cout << "counted -1 because moved from " << xLastCount << " to " << x << "\n";
+   }
+   xLastCount = x;
+   yLastCount = y;
+   return result;
 }

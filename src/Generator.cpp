@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <cstdlib>
@@ -18,66 +19,66 @@ Generator::Generator(
 
     parameters.read_file(parameterFileName);
 
-    beginOfFilenames = parameters.get_value(
+    beginOfFilenames = parameters.get_string(
             "begin_of_filenames");
-    numberOfDigits = std::stoi(
-      parameters.get_value("number_of_digits")
-    );
-    numberOfImages = std::stoi(
-      parameters.get_value("number_of_images")
-    );
-    if (std::pow(10, numberOfDigits) + 0.01 <= numberOfImages) {
+    countFilename = parameters.get_string(
+            "count_filename");
+    numberOfDigits =  parameters.get_int(
+            "number_of_digits");
+    numberOfImages = parameters.get_int(
+            "number_of_images");
+    if (std::pow(10, numberOfDigits) + 0.01
+            <= numberOfImages) {
         throw std::invalid_argument(
             "Number of digits too small"
         );
     }
-    imageWidth = std::stoi(
-      parameters.get_value("image_width")
-    );
-    imageHeight = std::stoi(
-      parameters.get_value("image_height")
-    );
-    borderWidth = std::stoi(
-      parameters.get_value("border_width")
-    );
-    numberOfBees = std::stoi(
-      parameters.get_value("number_of_bees")
-    );
+    imageWidth = parameters.get_int(
+            "image_width");
+    imageHeight = parameters.get_int(
+            "image_height");
+    borderWidth = parameters.get_int(
+            "border_width");
+    numberOfBees = parameters.get_int(
+            "number_of_bees");
 
     image_ptr = new Image(imageWidth, imageHeight);
 
     std::vector<std::string> color = 
-            parameters.get_values("color_of_bees");
+            parameters.get_strings("color_of_bees");
 
     beeRed = std::stoi(color[0]);
     beeGreen = std::stoi(color[1]);
     beeBlue = std::stoi(color[2]);
 
-    color = parameters.get_values(
+    color = parameters.get_strings(
             "background_color");
 
     backgroundRed = std::stoi(color[0]);
     backgroundGreen = std::stoi(color[1]);
     backgroundBlue = std::stoi(color[2]);
 
-    radiusOfBees = std::stof(
-        parameters.get_value("radius_of_bees"));
-    minStartSpeed = std::stof(
-        parameters.get_value("min_start_speed"));
-    maxStartSpeed = std::stof(
-        parameters.get_value("max_start_speed"));
-    brownianProbability = std::stof(
-      parameters.get_value("brownian_probability"));
-    brownianStrength = std::stof(
-      parameters.get_value("brownian_strength"));
-    oneMinusFriction = 1.0 - std::stof(
-      parameters.get_value("friction"));
+    radiusOfBees = parameters.get_float(
+            "radius_of_bees");
+    minStartSpeed = parameters.get_float(
+            "min_start_speed");
+    maxStartSpeed = parameters.get_float(
+            "max_start_speed");
+    brownianProbability = parameters.get_float(
+            "brownian_probability");
+    brownianStrength = parameters.get_float(
+            "brownian_strength");
+    oneMinusFriction = 1.0 - parameters.get_float(
+            "friction");
+    xCountLine = parameters.get_float(
+            "x_count_line");
 
     std::srand(std::time(nullptr));
     for(int i=0; i<numberOfBees; i++) {
         createNewBee();
     }
 
+    counts = {};
 }
 
 Generator::~Generator() {
@@ -109,6 +110,7 @@ void Generator::createNewBee() {
     double ySpeed = std::sin(angle) * speed;
     newbee_ptr->setXSpeed(xSpeed);
     newbee_ptr->setYSpeed(ySpeed);
+    newbee_ptr->setXCountLine(xCountLine);
     bee_ptrs.push_back(newbee_ptr);
 }
 
@@ -207,6 +209,7 @@ void Generator::makeStep() {
 }
 
 void Generator::makeVideo() {
+    counts = {};
     for(int i=0; i<numberOfImages; i++) {
         std::cout << i << " of " << numberOfImages << "\n";
         std::string filename(beginOfFilenames);
@@ -217,6 +220,31 @@ void Generator::makeVideo() {
         );
         filename.append(".png");
         makeStep();
+        int left = 0;
+        int right = 0;
+        for(Bee* bee_ptr : bee_ptrs) {
+            int c = bee_ptr->count();
+            if (c == 1) {
+              right += 1;
+            } else if (c == -1) {
+              left += 1;
+            }
+        }
+        std::vector<int> vec = {left, right};
+        counts.push_back(vec);
         writeImage(filename);
     }
+
+    std::ofstream file(countFilename);
+    int linenumber = 0;
+    for(std::vector<int> vec : counts) {
+        file
+            << utils::intToStringLeadingZeros(
+                linenumber, numberOfDigits
+            )
+            << " "
+            << vec[0] << " " << vec[1] << "\n";
+        linenumber++;
+    }
+    file.close();
 }

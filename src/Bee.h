@@ -11,9 +11,12 @@ class Bee {
         double y = 0;
         double xOld = 0;
         double yOld = 0;
+        double xLastCount = 0;
+        double yLastCount = 0;
         double xSpeed = 0;
         double ySpeed = 0;
         int undone = 0;
+        double xCountLine = 0;
     public:
         Bee();
         ~Bee();
@@ -22,6 +25,7 @@ class Bee {
         void setBlue(uint8_t blue);
         void setRadius(double radius);
         double getRadius();
+        void setXCountLine(double xCountLine);
         void setX(double x);
         void setY(double y);
         void setXSpeed(double xSpeed);
@@ -36,6 +40,7 @@ class Bee {
         int getUndone();
         int overlapsWith(Bee* bee_ptr);
         void collideWith(Bee* bee_ptr);
+        int count();
 };
 
 #endif

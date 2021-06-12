@@ -17,9 +17,9 @@ TEST (Generator, create_and_delete ) {
     "../test/testfiles/generator_parameters.txt");
 
 
-    ASSERT_EQ(generator->getImageWidth(), 200);
-    ASSERT_EQ(generator->getImageHeight(), 300);
-    ASSERT_EQ(generator->getBorderWidth(), 300);
+    ASSERT_EQ(generator->getImageWidth(), 50);
+    ASSERT_EQ(generator->getImageHeight(), 75);
+    ASSERT_EQ(generator->getBorderWidth(), 100);
 
     delete generator;
 }

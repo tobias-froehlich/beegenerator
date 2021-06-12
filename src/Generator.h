@@ -4,6 +4,7 @@
 class Generator {
     private:
        std::string beginOfFilenames = "";
+       std::string countFilename = "";
        int numberOfDigits = 0;
        int numberOfImages = 0;
        int imageWidth = 0;
@@ -16,6 +17,7 @@ class Generator {
        double brownianProbability = 0;
        double brownianStrength = 0;
        double oneMinusFriction = 0;
+       double xCountLine;
        uint8_t backgroundRed = 0;
        uint8_t backgroundGreen = 0;
        uint8_t backgroundBlue = 0;
@@ -24,6 +26,7 @@ class Generator {
        uint8_t beeBlue = 0;
        Image* image_ptr;
        std::vector<Bee*> bee_ptrs;
+       std::vector< std::vector< int > > counts;
     public:
         Generator(std::string parameterFileName);
         ~Generator();
