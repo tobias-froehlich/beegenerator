@@ -39,6 +39,8 @@ TEST (Generator, write_image) {
 }
 
 TEST (Generator, makeVideo) {
+    std::srand(std::time(nullptr));
+
     Parameters* parameters_ptr = new Parameters();
     parameters_ptr->read_file("../test/testfiles/generator_parameters.txt");
     Generator generator(parameters_ptr);

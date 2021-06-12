@@ -26,6 +26,9 @@ Generator::Generator(
             "number_of_digits");
     numberOfImages = parameters_ptr->get_int(
             "number_of_images");
+    numberOfStepsBeforeVideoStarts =
+            parameters_ptr->get_int(
+            "number_of_steps_before_video_starts");
     if (std::pow(10, numberOfDigits) + 0.01
             <= numberOfImages) {
         throw std::invalid_argument(
@@ -52,12 +55,10 @@ Generator::Generator(
     xCountLine = parameters_ptr->get_float(
             "x_count_line");
 
-    std::srand(std::time(nullptr));
     for(int i=0; i<numberOfBees; i++) {
         createNewBee();
     }
 
-    counts = {};
 }
 
 Generator::~Generator() {
@@ -120,9 +121,18 @@ void Generator::makeStep() {
 }
 
 void Generator::makeVideo() {
-    counts = {};
+
+    for(int i=0; i<numberOfStepsBeforeVideoStarts;
+            i++) {
+        makeStep();
+    }
+
+    std::ofstream file(countFilename);
     for(int i=0; i<numberOfImages; i++) {
-        std::cout << i << " of " << numberOfImages << "\n";
+        if (i % 100 == 0) {
+            std::cout << "Progress: " << i << " of " << numberOfImages << "\r";
+            fflush(stdout);
+        }
         std::string filename(beginOfFilenames);
         filename.append(
             utils::intToStringLeadingZeros(
@@ -141,21 +151,15 @@ void Generator::makeVideo() {
               left += 1;
             }
         }
-        std::vector<int> vec = {left, right};
-        counts.push_back(vec);
         writeImage(filename);
-    }
-
-    std::ofstream file(countFilename);
-    int linenumber = 0;
-    for(std::vector<int> vec : counts) {
         file
             << utils::intToStringLeadingZeros(
-                linenumber, numberOfDigits
+                i, numberOfDigits
             )
             << " "
-            << vec[0] << " " << vec[1] << "\n";
-        linenumber++;
+            << left << " " << right << "\n";
     }
     file.close();
+    std::cout << "Data generated successfully.\n";
+    fflush(stdout);
 }

@@ -8,6 +8,7 @@ class Generator {
        std::string countFilename = "";
        int numberOfDigits = 0;
        int numberOfImages = 0;
+       int numberOfStepsBeforeVideoStarts = 0;
        int imageWidth = 0;
        int imageHeight = 0;
        int borderWidth = 0;
@@ -16,7 +17,6 @@ class Generator {
        utils::Color backgroundColor;
        Image* image_ptr;
        std::vector<Bee*> bee_ptrs;
-       std::vector< std::vector< int > > counts;
     public:
         Generator(Parameters* parameters_ptr);
         ~Generator();

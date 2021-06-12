@@ -1,22 +1,23 @@
 begin_of_filenames   /tmp/bee_
 number_of_digits     4
-number_of_images     100
+number_of_images     1000
+number_of_steps_before_video_starts 0 
 count_filename       /tmp/counts.txt
 
-image_width    20
-image_height   20
-border_width   0
-x_count_line   25
+image_width    200
+image_height   200
+border_width   300
+x_count_line   100
 
 color_of_bees     255 200 50
 background_color   30 150 80 
 
-number_of_bees    10
-radius_of_bees    2
-min_start_speed   0.3
-max_start_speed   0.5
+number_of_bees    200
+radius_of_bees    5
+min_start_speed   0
+max_start_speed   0
 
-brownian_probability 0.1
-brownian_strength    0.5
+brownian_probability 0.05
+brownian_strength   10
 
-friction 0.01
+friction 0.001

@@ -2,6 +2,7 @@
 #define UTILS_H_
 
 namespace utils {
+
   std::vector< std::string > split(std::string str, char delimiter);
     // Splits str into words, seperated by delimiter. Several delimeters
     // occuring in a group are treated as one. Delimiters at beginning or end
@@ -33,6 +34,8 @@ namespace utils {
   };
 
   Color vectorToColor(std::vector < int > vec);
+
+  double random(double min, double max);
 
 }
 

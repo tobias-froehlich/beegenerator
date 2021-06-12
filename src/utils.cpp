@@ -4,8 +4,11 @@
 #include <cmath>
 #include <sstream>
 #include <iomanip>
+#include <cstdlib>
+#include <ctime>
 #include "const.h"
 #include "utils.h"
+
 
 
 std::vector< std::string > utils::split(std::string str, char delimiter) {
@@ -121,3 +124,13 @@ utils::Color utils::vectorToColor(
     return color;
 }
 
+double utils::random(double min, double max) {
+    if (max - min < 0.000001) {
+        return min;
+    } else {
+        return (
+            std::rand()
+         % (int)((max - min) * 1000000)
+       ) * 0.000001 + min;
+    }
+}

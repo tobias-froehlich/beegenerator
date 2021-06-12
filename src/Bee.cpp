@@ -92,27 +92,21 @@ double Bee::getYSpeed() {
 }
 
 void Bee::randomLocation() {
-        x =  (
-            std::rand()
-            % (int)(
-                (
-                    imageWidth-2*radius
-                  + 2*borderWidth
-                ) * 1000
-            )
-        ) * 0.001 + radius - borderWidth;
-        y = (
-            std::rand()
-            % (int)(
-                (imageHeight-2*radius) * 1000
-            )
-        ) * 0.001 + radius;
-         
+    x = utils::random(
+        -borderWidth + radius,
+        imageWidth + borderWidth - radius
+    );
+    y = utils::random(
+        radius,
+        imageHeight - radius
+    ); 
 }
 
 void Bee::randomSpeed() {
-    double speed = (std::rand() % (int)(maxStartSpeed * 1000.0)) * 0.001 + minStartSpeed;
-    double angle = (std::rand() % (int)(360000)) * 0.001 * cPiOver180;
+    double speed = utils::random(
+            minStartSpeed, maxStartSpeed);
+    double angle = utils::random(
+            0., 2.*cTwoPi);
     xSpeed = std::cos(angle) * speed;
     ySpeed = std::sin(angle) * speed;
 }
@@ -141,10 +135,12 @@ void Bee::applyFriction() {
 }
 
 void Bee::applyBrownianMotion() {
-    if ((std::rand() % 10000) * 0.0001 
-            < brownianProbability) {
-        double speed = (std::rand() % (int)(brownianStrength * 1000.0)) * 0.001;
-        double angle = (std::rand() % (int)(360000)) * 0.001 * cPiOver180;
+    if (utils::random(0.0, 1.0)
+                < brownianProbability) {
+        double speed = utils::random(
+                0.0, brownianStrength);
+        double angle = utils::random(
+                0.0, cTwoPi);
         xSpeed = std::cos(angle) * speed;
         ySpeed = std::sin(angle) * speed;
     }
@@ -244,12 +240,12 @@ int Bee::count() {
    if ((xLastCount <= xCountLine)
      && (x > xCountLine)) {
          result = 1;
-         std::cout << "counted 1 because moved from " << xLastCount << " to " << x << "\n";
+//         std::cout << "counted 1 because moved from " << xLastCount << " to " << x << "\n";
    }
    if ((xLastCount > xCountLine)
      && (x <= xCountLine)) {
          result = -1;
-         std::cout << "counted -1 because moved from " << xLastCount << " to " << x << "\n";
+//         std::cout << "counted -1 because moved from " << xLastCount << " to " << x << "\n";
    }
    xLastCount = x;
    yLastCount = y;
