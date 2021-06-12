@@ -25,6 +25,15 @@ namespace utils {
 
   std::vector < int > vector_str_to_int(
     std::vector < std::string >);
+
+  struct Color {
+    uint8_t red;
+    uint8_t green;
+    uint8_t blue;
+  };
+
+  Color vectorToColor(std::vector < int > vec);
+
 }
 
 

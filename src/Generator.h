@@ -13,9 +13,7 @@ class Generator {
        int borderWidth = 0;
        int numberOfBees = 0;
        double xCountLine;
-       uint8_t backgroundRed = 0;
-       uint8_t backgroundGreen = 0;
-       uint8_t backgroundBlue = 0;
+       utils::Color backgroundColor;
        Image* image_ptr;
        std::vector<Bee*> bee_ptrs;
        std::vector< std::vector< int > > counts;

@@ -43,13 +43,11 @@ Generator::Generator(
 
     image_ptr = new Image(imageWidth, imageHeight);
 
-    std::vector<std::string> color =
-            parameters_ptr->get_strings(
-            "background_color");
-
-    backgroundRed = std::stoi(color[0]);
-    backgroundGreen = std::stoi(color[1]);
-    backgroundBlue = std::stoi(color[2]);
+    backgroundColor = utils::vectorToColor(
+        parameters_ptr->get_ints(
+            "background_color"
+        )
+    );
 
     xCountLine = parameters_ptr->get_float(
             "x_count_line");
@@ -97,8 +95,7 @@ int Generator::getBorderWidth() {
 
 void Generator::writeImage(
         std::string imageFileName) {
-    image_ptr->fill(backgroundRed,
-            backgroundGreen, backgroundBlue);
+    image_ptr->fill(backgroundColor);
     for(Bee* bee_ptr : bee_ptrs) {
             bee_ptr->draw(image_ptr);
     }

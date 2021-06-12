@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "../libs/tinypngout/TinyPngOut.hpp"
+#include "utils.h"
 #include "Image.h"
 
 Image::Image(int width, int height) {
@@ -32,6 +33,14 @@ void Image::fill(uint8_t red, uint8_t green,
         pixels[i3 + 1] = green;
         pixels[i3 + 2] = blue;
     }
+}
+
+void Image::fill(utils::Color backgroundColor) {
+    fill(
+        backgroundColor.red,
+        backgroundColor.green,
+        backgroundColor.blue
+    );
 }
 
 int Image::getWidth() {
@@ -72,6 +81,14 @@ void Image::setPixel(int x, int y, uint8_t red,
         pixels[i+1] = green;
         pixels[i+2] = blue;
     }
+}
+
+void Image::setPixel(int x, int y,
+        utils::Color color) {
+    setPixel(
+        x, y,
+        color.red, color.green, color.blue
+    );
 }
 
 void Image::write(

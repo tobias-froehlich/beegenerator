@@ -100,3 +100,24 @@ std::vector < int > utils::vector_str_to_int(
     return result;
 }
 
+utils::Color utils::vectorToColor(
+        std::vector < int > vec) {
+    if (vec.size() != 3) {
+        throw std::invalid_argument(
+            "Color needs three channels!"
+        );
+    }
+    if ((vec[0] < 0) || (vec[0] > 255)
+            || (vec[1] < 0) || (vec[1] > 255)
+            || (vec[2] < 0) || (vec[2] > 255)) {
+        throw std::invalid_argument(
+            "Color channels need values 0..255 ."
+        );
+    }
+    Color color;
+    color.red = vec[0];
+    color.green = vec[1];
+    color.blue = vec[2];
+    return color;
+}
+

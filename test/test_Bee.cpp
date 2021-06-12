@@ -20,9 +20,6 @@ TEST (Bee, create_and_delete) {
 TEST (Bee, draw) {
     Parameters* parameters_ptr = new Parameters("../test/testfiles/generator_parameters.txt");
     Bee bee(parameters_ptr);
-    bee.setRed(250);
-    bee.setGreen(200);
-    bee.setBlue(30);
     bee.setRadius(4);
     bee.setX(5);
     bee.setY(6);

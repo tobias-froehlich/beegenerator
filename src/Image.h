@@ -11,6 +11,7 @@ class Image {
         ~Image();
         void fill(uint8_t red, uint8_t green,
                 uint8_t blue);
+        void fill(utils::Color backgroundColor);
         int getWidth();
         int getHeight();
         uint8_t getPixel(int x, int y, int channel);
@@ -18,6 +19,8 @@ class Image {
                 uint8_t value);
         void setPixel(int x, int y, uint8_t red,
                 uint8_t green, uint8_t blue);
+        void setPixel(int x, int y,
+                utils::Color color);
         void write(std::string fileName);
 };
 

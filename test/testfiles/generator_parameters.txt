@@ -1,6 +1,6 @@
 begin_of_filenames   /tmp/bee_
 number_of_digits     4
-number_of_images     10000
+number_of_images     100
 count_filename       /tmp/counts.txt
 
 image_width    20

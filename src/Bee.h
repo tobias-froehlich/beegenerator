@@ -7,9 +7,7 @@ class Bee {
         int imageWidth;
         int imageHeight;
         int borderWidth;
-        uint8_t red = 0;
-        uint8_t green = 0;
-        uint8_t blue = 0;
+        utils::Color color;
         double radius = 0;
         double minStartSpeed = 0;
         double maxStartSpeed = 0;
@@ -26,9 +24,6 @@ class Bee {
     public:
         Bee(Parameters* parameters_ptr);
         ~Bee();
-        void setRed(uint8_t red);
-        void setGreen(uint8_t green);
-        void setBlue(uint8_t blue);
         void setRadius(double radius);
         double getRadius();
         void setXCountLine(double xCountLine);
@@ -46,7 +41,6 @@ class Bee {
         void applyFriction();
         void applyBrownianMotion();
         void makeStep(double factor);
-        int getUndone();
         void collideWithWalls();
         int overlapsWith(Bee* bee_ptr);
         void reflectAt(Bee* bee_ptr);

@@ -4,18 +4,20 @@
 #include <cmath>
 
 #include "const.h"
+#include "utils.h"
 #include "Parameters.h"
 #include "Image.h"
 #include "Bee.h"
 
 Bee::Bee(Parameters* parameters_ptr) {
     this->parameters_ptr = parameters_ptr;
-    std::vector< int > color =
-            parameters_ptr->get_ints(
-            "color_of_bees");
-    red = color[0];
-    green = color[1];
-    blue = color[2];
+
+    color = utils::vectorToColor(
+        parameters_ptr->get_ints(
+            "color_of_bees"
+        )
+    );
+
     radius = parameters_ptr->get_float(
             "radius_of_bees");
     xCountLine = parameters_ptr->get_float(
@@ -41,18 +43,6 @@ Bee::Bee(Parameters* parameters_ptr) {
 
 Bee::~Bee() {
 
-}
-
-void Bee::setRed(uint8_t red) {
-    this->red = red;
-}
-
-void Bee::setGreen(uint8_t green) {
-    this->green = green;
-}
-
-void Bee::setBlue(uint8_t blue) {
-    this->blue = blue;
 }
 
 void Bee::setRadius(double radius) {
@@ -138,7 +128,7 @@ void Bee::draw(Image* image_ptr) {
                 double dy = iy - y;
                 if (dx*dx + dy*dy <= radius*radius) {
                     image_ptr->setPixel(ix, iy,
-                            red, green, blue);
+                            color);
                 }
             }
         }

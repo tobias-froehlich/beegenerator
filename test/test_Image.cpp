@@ -1,3 +1,4 @@
+#include "../src/utils.h"
 #include "../src/Image.h"
 
 TEST (Image, create_and_delete ) {
@@ -10,7 +11,9 @@ TEST (Image, create_and_delete ) {
 
 TEST (Image, everything) {
     Image image(40, 30);
-    image.fill(50, 100, 70);
+    utils::Color color;
+    color = utils::vectorToColor({50, 50, 50});
+    image.fill(color);
     image.setPixel(10, 5, 2, 255);
     image.setPixel(11, 5, 180, 190, 200);
     ASSERT_EQ(image.getPixel(10, 5, 2), 255);

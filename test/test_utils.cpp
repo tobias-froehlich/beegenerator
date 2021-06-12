@@ -98,3 +98,11 @@ TEST ( utils, vector_str_to_int ) {
   std::vector < int > result {1, 2, 345};
   ASSERT_EQ(utils::vector_str_to_int(v), result);
 }
+
+TEST ( utils, Color ) {
+    std::vector < int > vec {50, 60, 70};
+    utils::Color color = utils::vectorToColor(vec);
+    ASSERT_EQ(color.red, 50);
+    ASSERT_EQ(color.green, 60);
+    ASSERT_EQ(color.blue, 70);
+}
