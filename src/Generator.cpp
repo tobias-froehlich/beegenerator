@@ -141,13 +141,13 @@ void Generator::makeVideo() {
     std::string countFilename(dataDirectory);
     countFilename.append("counts_");
     if (type == 0) {
-        countFilename.append("train_");
+        countFilename.append("train.txt");
         imageFilename.append("train_");
     } else if (type == 1) {
-        countFilename.append("val_");
+        countFilename.append("val.txt");
         imageFilename.append("val_");
     } else if (type == 2) {
-        countFilename.append("test_");
+        countFilename.append("test.txt");
         imageFilename.append("test_");
     }
 

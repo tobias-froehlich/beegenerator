@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <string>
 #include "beegeneratorConfig.h"
@@ -23,6 +24,31 @@ int main(int argc, char** argv) {
                 = new Parameters();
         parameters_ptr->read_file(
                 parameterFilename);
+
+        std::cout << "Generating data_info.py: \n";
+        std::string infoFilename =
+                parameters_ptr->get_string(
+                "data_directory");
+        infoFilename.append("data_info.py");
+        std::ofstream file(infoFilename);
+        file << "IMAGE_WIDTH            = "
+             << parameters_ptr->get_int(
+                "image_width") << "\n"; 
+        file << "IMAGE_HEIGHT           = "
+             << parameters_ptr->get_int(
+                "image_height") << "\n";
+        file << "NUMBER_OF_TRAIN_IMAGES = "
+             << parameters_ptr->get_int(
+                "number_of_train_images") << "\n";
+        file << "NUMBER_OF_VAL_IMAGES   = "
+             << parameters_ptr->get_int(
+                "number_of_val_images") << "\n";
+        file << "NUMBER_OF_TEST_IMAGES  = "
+             << parameters_ptr->get_int(
+                "number_of_test_images") << "\n";
+        file.close();
+        std::cout << "data_info.py generated successfully.\n";
+
 
         Generator* generator_ptr;
 
