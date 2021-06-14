@@ -4,8 +4,8 @@
 class Generator {
     private:
        Parameters* parameters_ptr;
-       std::string beginOfFilenames = "";
-       std::string countFilename = "";
+       int type = 0; // 0: train, 1: val, 2: test
+       std::string dataDirectory = "";
        int numberOfDigits = 0;
        int numberOfImages = 0;
        int numberOfStepsBeforeVideoStarts = 0;
@@ -18,7 +18,8 @@ class Generator {
        Image* image_ptr;
        std::vector<Bee*> bee_ptrs;
     public:
-        Generator(Parameters* parameters_ptr);
+        Generator(Parameters* parameters_ptr,
+                int type);
         ~Generator();
         void createNewBee();
         int getImageWidth();

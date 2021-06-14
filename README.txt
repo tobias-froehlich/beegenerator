@@ -32,9 +32,12 @@ Running:
 Example for parameters.txt:
 ===========================
 
-begin_of_filenames   /tmp/bee_               % e.g. /tmp/bee_
-number_of_digits     4                       % e.g. 3, then first image is /tmp/bee_000.png
-number_of_images     1000  
+
+data_directory   /tmp/bees/               % e.g. /tmp/
+number_of_digits     4                       % e.g. 3, then first image is /tmp/train_000.png
+number_of_train_images          1000
+number_of_val_images             400  
+number_of_test_images            200  
 number_of_steps_before_video_starts 1000     % steps carried out without making images. For avoiding
                                              % start effects at the beginning.
 

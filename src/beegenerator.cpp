@@ -18,14 +18,33 @@ int main(int argc, char** argv) {
         std::string parameterFilename(argv[1]);
         std::cout << "parameter filename: "
                 << parameterFilename << "\n";
+
         Parameters* parameters_ptr
                 = new Parameters();
         parameters_ptr->read_file(
                 parameterFilename);
-        Generator* generator_ptr = 
-                new Generator(parameters_ptr);
+
+        Generator* generator_ptr;
+
+        std::cout << "Generating train data:\n";
+        generator_ptr = 
+                new Generator(parameters_ptr, 0);
         generator_ptr->makeVideo();
         delete generator_ptr;
+
+        std::cout << "Generating val data:\n";
+        generator_ptr = 
+                new Generator(parameters_ptr, 1);
+        generator_ptr->makeVideo();
+        delete generator_ptr;
+
+        std::cout << "Generating test data:\n";
+        generator_ptr = 
+                new Generator(parameters_ptr, 2);
+        generator_ptr->makeVideo();
+        delete generator_ptr;
+
+
         delete parameters_ptr;
     } else {
         std::cout << "One parameter needed that specifies the parameter file.\n";        

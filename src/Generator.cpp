@@ -14,18 +14,28 @@
 #include "Generator.h"
 
 Generator::Generator(
-        Parameters* parameters_ptr) {
+        Parameters* parameters_ptr, int type) {
 
     this->parameters_ptr = parameters_ptr;
 
-    beginOfFilenames = parameters_ptr->get_string(
-            "begin_of_filenames");
-    countFilename = parameters_ptr->get_string(
-            "count_filename");
+    this->type = type;
+
+    dataDirectory = parameters_ptr->get_string(
+            "data_directory");
     numberOfDigits =  parameters_ptr->get_int(
             "number_of_digits");
-    numberOfImages = parameters_ptr->get_int(
-            "number_of_images");
+
+    if (type == 0) {
+        numberOfImages = parameters_ptr->get_int(
+                "number_of_train_images");
+    } else if (type == 1) {
+        numberOfImages = parameters_ptr->get_int(
+                "number_of_val_images");
+    } else if (type == 2) {
+        numberOfImages = parameters_ptr->get_int(
+                "number_of_test_images");
+    }
+
     numberOfStepsBeforeVideoStarts =
             parameters_ptr->get_int(
             "number_of_steps_before_video_starts");
@@ -127,13 +137,29 @@ void Generator::makeVideo() {
         makeStep();
     }
 
+    std::string imageFilename(dataDirectory);
+    std::string countFilename(dataDirectory);
+    countFilename.append("counts_");
+    if (type == 0) {
+        countFilename.append("train_");
+        imageFilename.append("train_");
+    } else if (type == 1) {
+        countFilename.append("val_");
+        imageFilename.append("val_");
+    } else if (type == 2) {
+        countFilename.append("test_");
+        imageFilename.append("test_");
+    }
+
     std::ofstream file(countFilename);
+
+    
     for(int i=0; i<numberOfImages; i++) {
         if (i % 100 == 0) {
             std::cout << "Progress: " << i << " of " << numberOfImages << "\r";
             fflush(stdout);
         }
-        std::string filename(beginOfFilenames);
+        std::string filename(imageFilename);
         filename.append(
             utils::intToStringLeadingZeros(
                 i, numberOfDigits
